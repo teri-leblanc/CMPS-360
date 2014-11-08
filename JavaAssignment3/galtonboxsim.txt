@@ -1,0 +1,16 @@
+using System.Collections;
+private ArrayList boxSim; //Private array to hold the GaltonBoxSim objects.
+boxSim = new ArrayList(5); //Initialize all Galton Boxes
+			for(int i = 0; i < numGB; i++){
+				boxSim.Add (new GaltonBoxSim (numGBB)); //create galtonboxsim object in each array index.
+			}
+			foreach(GaltonBoxSim b in boxSim)
+			{//Run Simulation for all Galton Boxes created
+
+				Console.WriteLine();
+				Console.WriteLine();
+				Console.WriteLine("----------Simulation run for " + count +"-------------");
+				b.runSim(numGBBa);
+				b.boxTotal();
+				count++;
+			}

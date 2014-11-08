@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="266.0" prefWidth="415.0" style="-fx-background-color: white;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="xml.project.FXMLDocumentController">
+    <children>
+        <Button fx:id="button" alignment="CENTER_RIGHT" layoutX="267.0" layoutY="107.0" onAction="#handleButtonAction" prefHeight="26.0" prefWidth="76.0" text="Click Me!">
+         <effect>
+            <Reflection />
+         </effect></Button>
+        <Label fx:id="label" layoutX="149.0" layoutY="207.0" minHeight="16" minWidth="69" />
+      <TextField fx:id="MyTextInput" layoutX="74.0" layoutY="107.0" onAction="#handleMyTextField" promptText="Type Something Here">
+         <effect>
+            <Reflection />
+         </effect>
+      </TextField>
+      <CheckBox fx:id="MyCheckBox" layoutX="267.0" layoutY="176.0" mnemonicParsing="false" onAction="#handleMyCheckBox" text="Destroy" />
+    </children>
+</AnchorPane>
