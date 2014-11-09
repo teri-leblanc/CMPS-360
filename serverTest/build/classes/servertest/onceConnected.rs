@@ -1,2 +1,0 @@
-serverTest.onceConnected
-secretserver.onceConnected
