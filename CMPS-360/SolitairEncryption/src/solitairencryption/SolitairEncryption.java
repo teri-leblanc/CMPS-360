@@ -344,7 +344,7 @@ Visibility: Private
              else if(cards.get(count).contains("C") || cards.get(count).contains("H")){
                  return FaceCardValue(count);
              }
-             return 0;
+             return 1;
     }
         
     
