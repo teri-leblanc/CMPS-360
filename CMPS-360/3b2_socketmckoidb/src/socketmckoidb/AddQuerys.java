@@ -27,19 +27,15 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class AddQuerys {
-     /**
-Prototype: public static void newStudent(String id, String name, String majorId);
-Description: Add a new student to the database.
-Precondition(s): Database online at localhost:9157 and created and non duplicate information passed as paramaters.
-Postcondition(s): A new student has been added to the database.
-Visibility: Public
-*/   
-    public static void newStudent(String id, String name, String majorId){
-     
-        // ******************************************************
+    public Connection connection;
+    public List<Results> resultList = new ArrayList<Results>();
+    public AddQuerys(){
+                // ******************************************************
         // ****************  Connecting to datatbase  ***********
         // ******************************************************
         
@@ -58,14 +54,24 @@ Visibility: Public
         String admin = "admin";
         String adminPw = "9999";
         
-        // make a connection to the database
-        Connection connection;
         try {
             connection = DriverManager.getConnection(url, admin, adminPw);
         } catch (SQLException e) {
             System.out.println("cannot connect to database: " + e);
             return;
         }
+    
+    }
+     /**
+Prototype: public static void newStudent(String id, String name, String majorId);
+Description: Add a new student to the database.
+Precondition(s): Database online at localhost:9157 and created and non duplicate information passed as paramaters.
+Postcondition(s): A new student has been added to the database.
+Visibility: Public
+*/   
+    public String newStudent(String id, String name, String majorId){
+     
+
        
          // ******************************************************
         // ****************  Querying datatbase  ****************
@@ -78,10 +84,11 @@ Visibility: Public
                     );
            
             System.out.println("Insertion accepted");
+            return "Insertion Accepted";
         } 
         catch (SQLException e) {
             System.out.println("Error querying database: " + e);
-            return;
+            return "Insertion Not Accepted";
         }
         
     }
@@ -92,35 +99,7 @@ Precondition(s): Database online at localhost:9157 and created and non duplicate
 Postcondition(s): A new course has been added to the database.
 Visibility: Public
 */   
-    public static void newCourse(String id,String courseDesc){
-     
-        // ******************************************************
-        // ****************  Connecting to datatbase  ***********
-        // ******************************************************
-        
-        // Register Mckoi JDBC driver
-        try {
-            Class.forName("com.mckoi.JDBCDriver").newInstance();
-        } catch (Exception e) {
-            System.out.println("Cannot register driver: " + e);
-            return;
-        }
-        
-        // URL for local database with configuration file
-        String url = "jdbc:mckoi://localhost:9157/BedrockU.conf?create=false";        
-        
-        // create root user info
-        String admin = "admin";
-        String adminPw = "9999";
-        
-        // make a connection to the database
-        Connection connection;
-        try {
-            connection = DriverManager.getConnection(url, admin, adminPw);
-        } catch (SQLException e) {
-            System.out.println("cannot connect to database: " + e);
-            return;
-        }
+    public Boolean newCourse(String id,String courseDesc){
        
          // ******************************************************
         // ****************  Querying datatbase  ****************
@@ -132,11 +111,11 @@ Visibility: Public
                         "(" + id + ", '" + courseDesc + "')"
                     );
            System.out.println("Insertion accepted");
-            
+            return true;
         } 
         catch (SQLException e) {
             System.out.println("Error querying database: " + e);
-            return;
+            return false;
         }
         
     }
@@ -147,39 +126,7 @@ Precondition(s): Database online at localhost:9157 and created and non duplicate
 Postcondition(s): A new major has been added to the database.
 Visibility: Public
 */   
-     public static void newMajor(String id,String majorDesc){
-     
-        // ******************************************************
-        // ****************  Connecting to datatbase  ***********
-        // ******************************************************
-        
-        // Register Mckoi JDBC driver
-        try {
-            Class.forName("com.mckoi.JDBCDriver").newInstance();
-        } catch (Exception e) {
-            System.out.println("Cannot register driver: " + e);
-            return;
-        }
-        
-        // URL for local database with configuration file
-        String url = "jdbc:mckoi://localhost:9157/BedrockU.conf?create=false";        
-        
-        // create root user info
-        String admin = "admin";
-        String adminPw = "9999";
-        
-        // make a connection to the database
-        Connection connection;
-        try {
-            connection = DriverManager.getConnection(url, admin, adminPw);
-        } catch (SQLException e) {
-            System.out.println("cannot connect to database: " + e);
-            return;
-        }
-       
-         // ******************************************************
-        // ****************  Querying datatbase  ****************
-        // ******************************************************
+     public Boolean newMajor(String id,String majorDesc){
         try{
          Statement statement = connection.createStatement();
                    statement.executeQuery(
@@ -187,12 +134,12 @@ Visibility: Public
                         "(" + id + ", '" + majorDesc + "')"
                     );
                    System.out.println("Insertion accepted");
-           
+           return true;
             
         } 
         catch (SQLException e) {
             System.out.println("Error querying database: " + e);
-            return;
+            return false;
         }
         
     }
@@ -203,36 +150,7 @@ Precondition(s): Database online at localhost:9157 and created and accurate info
 Postcondition(s): Student has been enrolled in the course.
 Visibility: Public
 */
-         public static void AddStudentCourse(String studentId,String courseId ){
-     
-        // ******************************************************
-        // ****************  Connecting to datatbase  ***********
-        // ******************************************************
-        
-        // Register Mckoi JDBC driver
-        try {
-            Class.forName("com.mckoi.JDBCDriver").newInstance();
-        } catch (Exception e) {
-            System.out.println("Cannot register driver: " + e);
-            return;
-        }
-        
-        // URL for local database with configuration file
-        String url = "jdbc:mckoi://localhost:9157/BedrockU.conf?create=false";        
-        
-        // create root user info
-        String admin = "admin";
-        String adminPw = "9999";
-        
-        // make a connection to the database
-        Connection connection;
-        try {
-            connection = DriverManager.getConnection(url, admin, adminPw);
-        } catch (SQLException e) {
-            System.out.println("cannot connect to database: " + e);
-            return;
-        }
-       
+         public Boolean AddStudentCourse(String studentId,String courseId ){
          // ******************************************************
         // ****************  Querying datatbase  ****************
         // ******************************************************
@@ -244,11 +162,11 @@ Visibility: Public
                     );
                    System.out.println("Insertion accepted");
            
-            
+            return true;
         } 
         catch (SQLException e) {
             System.out.println("Error querying database: " + e);
-            return;
+            return false;
         }
         
     }
@@ -259,35 +177,7 @@ Precondition(s): Database online at localhost:9157 and non duplicate information
 Postcondition(s): Address has been added.
 Visibility: Public
 */
-    public static void newAddress(String id,String address,String city,String state,String zip){
-     
-        // ******************************************************
-        // ****************  Connecting to datatbase  ***********
-        // ******************************************************
-        
-        // Register Mckoi JDBC driver
-        try {
-            Class.forName("com.mckoi.JDBCDriver").newInstance();
-        } catch (Exception e) {
-            System.out.println("Cannot register driver: " + e);
-            return;
-        }
-        
-        // URL for local database with configuration file
-        String url = "jdbc:mckoi://localhost:9157/BedrockU.conf?create=false";        
-        
-        // create root user info
-        String admin = "admin";
-        String adminPw = "9999";
-        
-        // make a connection to the database
-        Connection connection;
-        try {
-            connection = DriverManager.getConnection(url, admin, adminPw);
-        } catch (SQLException e) {
-            System.out.println("cannot connect to database: " + e);
-            return;
-        }
+    public String newAddress(String id,String address,String city,String state,String zip){
        
          // ******************************************************
         // ****************  Querying datatbase  ****************
@@ -300,12 +190,12 @@ Visibility: Public
 			      state + "', '" + zip + "')"
                     );
                    System.out.println("Insertion accepted");
-           
+                   return "Insertion Accepted";
             
         } 
         catch (SQLException e) {
             System.out.println("Error querying database: " + e);
-            return;
+            return "Instertion Failed";
         }
         
     }

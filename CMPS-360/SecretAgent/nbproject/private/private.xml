@@ -2,6 +2,10 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/Users/Teri/NetBeansProjects/CMPS-360/SecretAgent/src/secretagent/SecretAgent.java</file>
+            <file>file:/Users/Teri/NetBeansProjects/CMPS-360/SecretAgent/src/secretagent/serverMessaging.java</file>
+            <file>file:/Users/Teri/NetBeansProjects/CMPS-360/SecretAgent/src/secretagent/FXMLDocumentController.java</file>
+        </group>
     </open-files>
 </project-private>

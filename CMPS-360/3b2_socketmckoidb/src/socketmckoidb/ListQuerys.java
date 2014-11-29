@@ -28,6 +28,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ListQuerys {
@@ -38,9 +40,12 @@ Description: List all Names with IDs
 Precondition(s): Database online at localhost:9157.
 Postcondition(s): All Names and IDs outputted to the terminal.
 Visibility: Public
+     * @return 
 */    
-    public static void IdandName(){
-            // ******************************************************
+    public Connection connection;
+    public List<Results> resultList = new ArrayList<Results>();
+   public ListQuerys(){
+                // ******************************************************
         // ****************  Connecting to datatbase  ***********
         // ******************************************************
         
@@ -49,7 +54,7 @@ Visibility: Public
             Class.forName("com.mckoi.JDBCDriver").newInstance();
         } catch (Exception e) {
             System.out.println("Cannot register driver: " + e);
-            return;
+            return ;
         }
         
         // URL for local database with configuration file
@@ -60,15 +65,16 @@ Visibility: Public
         String adminPw = "9999";
         
         // make a connection to the database
-        Connection connection;
+        
         try {
+            //Connection connection;
             connection = DriverManager.getConnection(url, admin, adminPw);
         } catch (SQLException e) {
             System.out.println("cannot connect to database: " + e);
-            return;
+            return ;
         }
-
-
+    }
+    public List IdandName(){
 
         // ******************************************************
         // ****************  Querying datatbase  ****************
@@ -88,16 +94,25 @@ try {
             System.out.println("**********************************************");
             System.out.println("Student Ids and Names:\n");
             while(result.next()) {
-                System.out.print(result.getString(1));
-                System.out.print(" : " +result.getString(2));
-                System.out.println("\n");
-            System.out.println("**********************************************");               
+                Results temp = new Results();
+                temp.id = result.getString(1);
+                temp.name = result.getString(2);
+                resultList.add(temp);
+               
+               System.out.print(result.getString(1));
+               System.out.print(" : " +result.getString(2));
+               System.out.println("\n");
+            System.out.println("**********************************************");
+
+            
             }
+            return resultList;
             
         } catch (SQLException e) {
             System.out.println("Error querying database: " + e);
-            return;
+            return null;
         }
+        
     }
      /**
 Prototype: public static void IdandCourse();
@@ -106,35 +121,7 @@ Precondition(s): Database online at localhost:9157.
 Postcondition(s): All Courses and IDs outputted to the terminal.
 Visibility: Public
 */    
-    public static void IdandCourse(){
-            // ******************************************************
-        // ****************  Connecting to datatbase  ***********
-        // ******************************************************
-        
-        // Register Mckoi JDBC driver
-        try {
-            Class.forName("com.mckoi.JDBCDriver").newInstance();
-        } catch (Exception e) {
-            System.out.println("Cannot register driver: " + e);
-            return;
-        }
-        
-        // URL for local database with configuration file
-        String url = "jdbc:mckoi://localhost:9157/BedrockU.conf?create=false";        
-        
-        // create root user info
-        String admin = "admin";
-        String adminPw = "9999";
-        
-        // make a connection to the database
-        Connection connection;
-        try {
-            connection = DriverManager.getConnection(url, admin, adminPw);
-        } catch (SQLException e) {
-            System.out.println("cannot connect to database: " + e);
-            return;
-        }
-
+    public List IdandCourse(){
 
 
         // ******************************************************
@@ -155,15 +142,20 @@ try {
             System.out.println("**********************************************");
             System.out.println("Course Ids and Descriptions:\n");
             while(result.next()) {
+                Results temp = new Results();
+                temp.courseId = result.getString(1);
+                temp.courseDesc = result.getString(2);
+                resultList.add(temp);
                 System.out.print(result.getString(1));
                 System.out.print(" : " +result.getString(2));
                 System.out.println("\n");
             System.out.println("**********************************************");
             }
+            return resultList;
             
         } catch (SQLException e) {
             System.out.println("Error querying database: " + e);
-            return;
+            return null;
         }
     }  
      /**
@@ -173,37 +165,7 @@ Precondition(s): Database online at localhost:9157.
 Postcondition(s): All Majors and IDs outputted to the terminal.
 Visibility: Public
 */    
-    public static void IdandMajor(){
-                // ******************************************************
-        // ****************  Connecting to datatbase  ***********
-        // ******************************************************
-        
-        // Register Mckoi JDBC driver
-        try {
-            Class.forName("com.mckoi.JDBCDriver").newInstance();
-        } catch (Exception e) {
-            System.out.println("Cannot register driver: " + e);
-            return;
-        }
-        
-        // URL for local database with configuration file
-        String url = "jdbc:mckoi://localhost:9157/BedrockU.conf?create=false";        
-        
-        // create root user info
-        String admin = "admin";
-        String adminPw = "9999";
-        
-        // make a connection to the database
-        Connection connection;
-        try {
-            connection = DriverManager.getConnection(url, admin, adminPw);
-        } catch (SQLException e) {
-            System.out.println("cannot connect to database: " + e);
-            return;
-        }
-
-
-
+    public List  IdandMajor(){
         // ******************************************************
         // ****************  Querying datatbase  ****************
 try {
@@ -222,15 +184,20 @@ try {
             System.out.println("**********************************************");
             System.out.println("Course Ids and Descriptions:\n");
             while(result.next()) {
+                Results temp = new Results();
+                temp.majorId = result.getString(1);
+                temp.majorDesc = result.getString(2);
+                resultList.add(temp);
                 System.out.print(result.getString(1));
                 System.out.print(" : " +result.getString(2));
                 System.out.println("\n");
                  System.out.println("**********************************************");
             }
+            return resultList;
             
         } catch (SQLException e) {
             System.out.println("Error querying database: " + e);
-            return;
+            return null;
         }
     
     
@@ -242,37 +209,7 @@ Precondition(s): Database online at localhost:9157.
 Postcondition(s): All Students and their given majors outputted to the terminal.
 Visibility: Public
 */    
-    public static void StudentMajor(){
-                    // ******************************************************
-        // ****************  Connecting to datatbase  ***********
-        // ******************************************************
-        
-        // Register Mckoi JDBC driver
-        try {
-            Class.forName("com.mckoi.JDBCDriver").newInstance();
-        } catch (Exception e) {
-            System.out.println("Cannot register driver: " + e);
-            return;
-        }
-        
-        // URL for local database with configuration file
-        String url = "jdbc:mckoi://localhost:9157/BedrockU.conf?create=false";        
-        
-        // create root user info
-        String admin = "admin";
-        String adminPw = "9999";
-        
-        // make a connection to the database
-        Connection connection;
-        try {
-            connection = DriverManager.getConnection(url, admin, adminPw);
-        } catch (SQLException e) {
-            System.out.println("cannot connect to database: " + e);
-            return;
-        }
-
-
-
+    public List StudentMajor(){
         // ******************************************************
         // ****************  Querying datatbase  ****************
 try {
@@ -292,14 +229,18 @@ try {
              System.out.println("**********************************************");
             System.out.println("Course Ids and Descriptions:\n");
             while(result.next()) {
+                Results temp = new Results();
+                temp.name = result.getString(1);
+                temp.majorDesc = result.getString(2);
+                resultList.add(temp);
                 System.out.print(result.getString(1)+" : "+result.getString(2));
                 System.out.println("\n");
                  System.out.println("**********************************************");
             }
-            
+            return resultList;
         } catch (SQLException e) {
             System.out.println("Error querying database: " + e);
-            return;
+            return null;
         }
     
     }
@@ -311,37 +252,7 @@ Postcondition(s): All Students with their enrolled courses outputted.
 Visibility: Public
 */       
     
-    public static void StudentCourse(){
-                    // ******************************************************
-        // ****************  Connecting to datatbase  ***********
-        // ******************************************************
-        
-        // Register Mckoi JDBC driver
-        try {
-            Class.forName("com.mckoi.JDBCDriver").newInstance();
-        } catch (Exception e) {
-            System.out.println("Cannot register driver: " + e);
-            return;
-        }
-        
-        // URL for local database with configuration file
-        String url = "jdbc:mckoi://localhost:9157/BedrockU.conf?create=false";        
-        
-        // create root user info
-        String admin = "admin";
-        String adminPw = "9999";
-        
-        // make a connection to the database
-        Connection connection;
-        try {
-            connection = DriverManager.getConnection(url, admin, adminPw);
-        } catch (SQLException e) {
-            System.out.println("cannot connect to database: " + e);
-            return;
-        }
-
-
-
+    public List StudentCourse(){
         // ******************************************************
         // ****************  Querying datatbase  ****************
 try {
@@ -361,14 +272,19 @@ try {
              System.out.println("**********************************************");
             System.out.println("Students in a course in the database:\n");
             while(result.next()) {
+                Results temp = new Results();
+                temp.name = result.getString(1);
+                temp.courseDesc = result.getString(2);
+                resultList.add(temp);
                 System.out.print(result.getString(1)+" : "+result.getString(2));
                 System.out.println("\n");
                  System.out.println("**********************************************");
             }
+            return resultList;
             
         } catch (SQLException e) {
             System.out.println("Error querying database: " + e);
-            return;
+            return null;
         }
 
     
@@ -381,36 +297,7 @@ Precondition(s): Database online at localhost:9157 and valid student ID passed.
 Postcondition(s): Students schedule outputted.
 Visibility: Public
 */ 
-    public static void StudentSchedule(int id){
-                    // ******************************************************
-        // ****************  Connecting to datatbase  ***********
-        // ******************************************************
-        
-        // Register Mckoi JDBC driver
-        try {
-            Class.forName("com.mckoi.JDBCDriver").newInstance();
-        } catch (Exception e) {
-            System.out.println("Cannot register driver: " + e);
-            return;
-        }
-        
-        // URL for local database with configuration file
-        String url = "jdbc:mckoi://localhost:9157/BedrockU.conf?create=false";        
-        
-        // create root user info
-        String admin = "admin";
-        String adminPw = "9999";
-        
-        // make a connection to the database
-        Connection connection;
-        try {
-            connection = DriverManager.getConnection(url, admin, adminPw);
-        } catch (SQLException e) {
-            System.out.println("cannot connect to database: " + e);
-            return;
-        }
-
-
+    public List StudentSchedule(int id){
 
         // ******************************************************
         // ****************  Querying datatbase  ****************
@@ -431,14 +318,18 @@ try {
              System.out.println("**********************************************");
             System.out.println("Students in a course in the database:\n");
             while(result.next()) {
+                Results temp = new Results();
+                temp.courseDesc = result.getString(1);
+                resultList.add(temp);
                 System.out.print(result.getString(1));
                 System.out.println("\n");
                  System.out.println("**********************************************");
             }
+            return resultList;
             
         } catch (SQLException e) {
             System.out.println("Error querying database: " + e);
-            return;
+            return null;
         }
 
     
@@ -451,37 +342,8 @@ Precondition(s): Database online at localhost:9157 and valid student ID passed.
 Postcondition(s): Students info is outputted to the terminal.
 Visibility: Public
 */ 
-        public static void StudentInfo(int id){
-                    // ******************************************************
-        // ****************  Connecting to datatbase  ***********
-        // ******************************************************
-        
-        // Register Mckoi JDBC driver
-        try {
-            Class.forName("com.mckoi.JDBCDriver").newInstance();
-        } catch (Exception e) {
-            System.out.println("Cannot register driver: " + e);
-            return;
-        }
-        
-        // URL for local database with configuration file
-        String url = "jdbc:mckoi://localhost:9157/BedrockU.conf?create=false";        
-        
-        // create root user info
-        String admin = "admin";
-        String adminPw = "9999";
-        
-        // make a connection to the database
-        Connection connection;
-        try {
-            connection = DriverManager.getConnection(url, admin, adminPw);
-        } catch (SQLException e) {
-            System.out.println("cannot connect to database: " + e);
-            return;
-        }
-
-
-
+        public List StudentInfo(int id){
+         
         // ******************************************************
         // ****************  Querying datatbase  ****************
 try {
@@ -502,15 +364,24 @@ try {
              System.out.println("**********************************************");
             System.out.println("Students in a course in the database:\n");
             while(result.next()) {
+                 Results temp = new Results();
+                temp.name = result.getString(1);
+                temp.street = result.getString(2);
+                temp.city = result.getString(3);
+                temp.state = result.getString(4);
+                temp.zip = result.getString(5);
+                temp.majorDesc = result.getString(6);
+                resultList.add(temp);
                 System.out.print(result.getString(1)+" : "+result.getString(2)+" "+result.getString(3)+" "+result.getString(4)+" "+result.getString(5)+" : "+result.getString(6));
                 System.out.println("\n");
                  
             }
             System.out.println("**********************************************");
+            return resultList;
             
         } catch (SQLException e) {
             System.out.println("Error querying database: " + e);
-            return;
+            return null;
         }
 
     

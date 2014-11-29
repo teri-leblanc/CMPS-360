@@ -24,14 +24,17 @@ with course ids
 
 package socketmckoidb;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-
 public class Main {
 public static Scanner scanner;
 int exit;
     public Main() {
-
-    
+ListQuerys a =new ListQuerys();
+AddQuerys b = new AddQuerys();
+    List<Results> result = new ArrayList<Results>();
        scanner = new Scanner(System.in);
         exit = -1;
         while(exit != 0){
@@ -56,27 +59,27 @@ int exit;
                 exit = 0;
                 break;
             case 1: // Display All Student Names and IDs
-                ListQuerys.IdandName();
+                result= a.IdandName();
                 break;
             case 2: // Display all Courses with Course IDS
-                ListQuerys.IdandCourse();
+               result = a.IdandCourse();
                 break;
             case 3: // Display all Majors with Major IDS
-                ListQuerys.IdandMajor();
+                result = a.IdandMajor();
                 break;
             case 4: // Display studnets with given majors
-                ListQuerys.StudentMajor();
+                result = a.StudentMajor();
                 break;
             case 5:// Display Students with Enrolled Courses
-                ListQuerys.StudentCourse();
+                result = a.StudentCourse();
                 break;
             case 6://Display Studnets Schedule
                 System.out.println("Please enter the Student ID");
-                ListQuerys.StudentSchedule(scanner.nextInt());
+                result = a.StudentSchedule(scanner.nextInt());
                 break;
             case 7: // Display Student Name, Address, and Major
                 System.out.println("Please enter the Student ID");
-                ListQuerys.StudentInfo(scanner.nextInt());
+               result =a.StudentInfo(scanner.nextInt());
                 break;
             case 8:// Add new Student and Address
                 //Get studnt ID
@@ -102,8 +105,8 @@ int exit;
                 System.out.println("State:");
                 String state = scanner.nextLine();
                 
-                AddQuerys.newStudent(id, name, majorID); //Add student
-                AddQuerys.newAddress(id, address, city, state, zip); //Add student address
+                b.newStudent(id, name, majorID); //Add student
+                b.newAddress(id, address, city, state, zip); //Add student address
                 break;
             case 9: // Add a new Course
                 scanner.nextLine();
@@ -111,7 +114,7 @@ int exit;
                 id = scanner.nextLine();
                 System.out.println("Enter course description: ");
                 String desc = scanner.nextLine();
-                AddQuerys.newCourse(id, desc);
+                b.newCourse(id, desc);
                 
                 break;
             case 10: // Add new Major
@@ -120,7 +123,7 @@ int exit;
                 id = scanner.nextLine();
                 System.out.println("Enter major description: ");
                 desc = scanner.nextLine();
-                AddQuerys.newMajor(id, desc);
+                b.newMajor(id, desc);
                 break;
             case 11://Enroll Student in a Course
                 scanner.nextLine();
@@ -128,7 +131,7 @@ int exit;
                 id = scanner.nextLine();
                 System.out.println("Enter Course id: ");
                 String courseId = scanner.nextLine();
-                AddQuerys.AddStudentCourse(id, courseId);
+                b.AddStudentCourse(id, courseId);
                 break;
             default:
                 System.out.println("Input not recognized");

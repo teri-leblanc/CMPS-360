@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Student Database Management System</title>
+    </h:head>
+    <h:body>
+         <h:form>
+        <c:choose><c:when test="#{secureBean.isIsAuthenticated()}">
+       
+            <h3 align ="center" style="margin-top:3%">Student Database Management System</h3>
+            <h3>List info from Database:</h3>
+           
+        <h:commandButton value="List Id and Course" action ="#{SchoolDB.listIdandCourse()}"/> 
+        <h:commandButton value="List Id and Major" action ="#{SchoolDB.listIdandMajor() }"/>  
+        <h:commandButton value="List Id and Name" action ="#{SchoolDB.listIdandName() }"/>  
+        <h:commandButton value="List Student Course" action ="#{SchoolDB.listStudentCourse() }"/>  
+        <h:commandButton value="List Student Major" action ="#{SchoolDB.listStudentMajor() }"/>
+ <hr/>
+        <h3>List Student Data: </h3>
+        
+        <h:outputLabel value =" Student ID: "/>
+        <h:inputText id="id" value ="#{SchoolDB.param1}"/>
+        <h:commandButton value ="List Student Info" action ="#{SchoolDB.listStudentInfo()}"/>
+        <h:commandButton value ="List Student Schedule" action ="#{SchoolDB.listStudentSchedule()}"/>  
+<hr/>
+        <h3> Add Student to a course</h3>
+        
+        <h:outputLabel value =" Student ID: "/>
+        <h:inputText id="studentId" value ="#{SchoolDB.paramId}"/>
+        <h:outputLabel value =" Course ID: "/>
+        <h:inputText id="courseId" value ="#{SchoolDB.paramCourseDesc}"/>
+        <h:commandButton value ="Add Student to Course" action ="#{SchoolDB.enrollStudent()}"/>  
+<hr/>
+        <h3>Add New Student: </h3>
+       
+        <h:commandButton value ="Add a Student" action="addStudent.xhtml"/>
+ <hr/>
+        <h3>Add New Course or Major:</h3>
+
+        <h:commandButton value ="Add a new Course" action="addCourse.xhtml"/>
+        <h:commandButton value ="Add a new Major" action="addMajor.xhtml"/>
+                <hr/>
+        <br/>
+        <div style="border:1px solid ;color:black; margin-top:5%;">
+            <h4>Results: </h4>
+        <table border="1px" align="center">
+            <tr><th>ID</th><th>Name</th><th>Major ID</th><th>Major</th><th>Course ID</th><th>Course</th><th>Street</th>
+                <th>City</th><th>State</th><th>Zip</th>
+            </tr>
+            
+           <ui:repeat value="#{SchoolDB.results}" var="results"> 
+               <tr>
+                 
+                    <td border ="1px solid">
+                   
+                        <h:outputText value ="#{results.id}"/>
+                   
+                   </td>
+                   <td>
+                        <h:outputText value ="#{results.name}"/>
+                   </td>
+                   <td>
+                       <h:outputText value ="#{results.majorId}"/>
+                   </td>
+                   <td>
+                       <h:outputText value ="#{results.majorDesc}"/>
+                   </td>
+                   <td>
+                       <h:outputText value ="#{results.courseId}"/>
+                   </td>
+                   <td>
+                       <h:outputText value ="#{results.courseDesc}"/>
+                   </td>
+                   <td>
+                       <h:outputText value ="#{results.street}"/>
+                   </td>
+                   
+                   <td>
+                       <h:outputText value ="#{results.city}"/>
+                   </td>
+                   <td>
+                       <h:outputText value ="#{results.state}"/>
+                   </td>
+                   <td>
+                       <h:outputText value ="#{results.zip}"/>
+                   </td>
+               </tr>
+           </ui:repeat>
+            
+        </table>
+        </div>
+        
+        </c:when>
+            <c:otherwise><h:commandButton value ="Login" action="Login.xhtml"/></c:otherwise>
+        </c:choose>
+        </h:form>
+           
+        
+    </h:body>
+</html>
+
